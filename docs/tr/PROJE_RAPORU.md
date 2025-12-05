@@ -10,15 +10,11 @@
 | **1247008042** | Ayberk İlcan Çirasun | Veri Araştırması & Analiz |
 | **1247008012** | Eren Aksoy | Model Belirleme & Optimizasyon |
 
----
-
 ## Özet (Abstract)
 
 Diyabet (Diabetes Mellitus), modern çağın en yaygın kronik hastalıklarından biri olup, erken teşhis edilmediğinde ciddi sağlık sorunlarına yol açabilmektedir. Bu çalışmanın temel amacı, bireylerin yaşam tarzı alışkanlıkları ve klinik verilerini analiz ederek diyabet riskini yüksek doğrulukla tahmin eden hibrit bir makine öğrenmesi sistemi geliştirmektir. Projede **Random Forest Classifier** ve **Logistic Regression** algoritmaları karşılaştırmalı olarak analiz edilmiş, **%87.22 doğruluk (accuracy)** oranıyla Random Forest modeli seçilmiştir. Çalışma, sadece klinik ölçümlere (glikoz, insülin) değil, aynı zamanda günlük yaşam alışkanlıklarına (sigara, alkol, BMI) odaklanan çift yönlü (hibrit) bir yaklaşım sunmasıyla literatürdeki benzer çalışmalardan ayrılmaktadır. Ayrıca, model kararlarının şeffaflığını sağlamak adına **SHAP (SHapley Additive exPlanations)** kütüphanesi kullanılarak açıklanabilir yapay zeka (XAI) entegrasyonu yapılmıştır.
 
 **Anahtar Kelimeler:** Makine Öğrenmesi, Diyabet Tahmini, Random Forest, SHAP, Veri Madenciliği, Karar Destek Sistemi.
-
----
 
 ## 1. Giriş (Introduction)
 
@@ -32,8 +28,6 @@ Bu projenin temel amacı, kullanıcıların tıbbi bir test yaptırmadan önce k
 
 Bu çalışma kapsamında, veri temizliğinden model eğitimine, web tabanlı kullanıcı arayüzünden PDF raporlamaya kadar uçtan uca bir yazılım geliştirme süreci yürütülmüştür.
 
----
-
 ## 2. İlgili Çalışmalar (Related Work)
 
 Literatürde diyabet tespiti üzerine yapılan çalışmalarda genellikle Pima Indians Diabetes veri seti kullanılmış ve Support Vector Machines (SVM), K-Nearest Neighbors (KNN) ve Yapay Sinir Ağları (ANN) gibi algoritmalar test edilmiştir.
@@ -43,8 +37,6 @@ Literatürde diyabet tespiti üzerine yapılan çalışmalarda genellikle Pima I
 
 Bizim çalışmamız, bu literatür bilgisini doğrulayarak **Random Forest** algoritmasını temel almış, ancak kapsamı genişleterek **BRFSS 2015 (Behavioral Risk Factor Surveillance System)** veri setini de sürece dahil etmiştir. Böylece modelimiz, sadece kan değerlerine bakarak değil, kişinin "Bugün spor yaptın mı?", "Sebze tüketiyor musun?" gibi yaşam tarzı sorularına verdiği yanıtlarla da risk analizi yapabilmektedir.
 
----
-
 ## 3. Materyal ve Yöntem (Material and Methods)
 
 Proje, Python programlama dili kullanılarak geliştirilmiştir. Veri işleme, modelleme ve arayüz geliştirme aşamaları aşağıda detaylandırılmıştır.
@@ -53,6 +45,65 @@ Proje, Python programlama dili kullanılarak geliştirilmiştir. Veri işleme, m
 Projede hibrit bir yapı kullanıldığı için iki farklı veri seti işlenmiştir:
 1.  **Yaşam Tarzı Veri Seti (BRFSS 2015):** 253,680 katılımcının anket verilerini içerir. (Özellikler: BMI, Sigara, Alkol, Fiziksel Aktivite, Yaş, Eğitim vb.)
 2.  **Klinik Veri Seti (Pima Indians):** 768 hastanın klinik ölçümlerini içerir. (Özellikler: Glikoz, İnsülin, Kan Basıncı, Deri Kalınlığı vb.)
+
+
+### 3.1 Veri Seti Kaynakları
+
+1.  **BRFSS 2015:** [U.S. Department of Health & Human Services](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)
+2.  **Pima Indians:** [National Institute of Diabetes and Digestive and Kidney Diseases](https://www.kaggle.com/uciml/pima-indians-diabetes-database)
+
+#### a. Yaşam Tarzı Modeli (BRFSS 2015)
+
+*   **Kaynak:** [U.S. Department of Health & Human Services](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)
+*   **Kapsam:** 253,680 Kişi (ABD Vatandaşları)
+*   **Odak:** Yaşam tarzı alışkanlıkları, demografik bilgiler ve genel sağlık algısı.
+*   **Algoritma:** Random Forest Classifier
+
+**Değişken Tablosu (BRFSS 2015):**
+
+| Değişken Adı | Açıklama | Tip |
+|--------------|----------|-----|
+| `HighBP` | Göz Doktoru Tarafından Konulan Yüksek Tansiyon Teşhisi | Kategorik (0/1) |
+| `HighChol` | Yüksek Kolesterol Teşhisi | Kategorik (0/1) |
+| `CholCheck` | Son 5 Yılda Kolesterol Kontrolü | Kategorik (0/1) |
+| `BMI` | Vücut Kitle İndeksi (Kilo/Boy^2) | Sürekli |
+| `Smoker` | Hayatında En Az 100 Sigara İçmiş | Kategorik (0/1) |
+| `Stroke` | İnme Geçirmiş | Kategorik (0/1) |
+| `HeartDiseaseorAttack` | Kalp Hastalığı veya Krizi | Kategorik (0/1) |
+| `PhysActivity` | Son 30 Günde Fiziksel Aktivite | Kategorik (0/1) |
+| `Fruits` | Günde 1+ Meyve Tüketimi | Kategorik (0/1) |
+| `Veggies` | Günde 1+ Sebze Tüketimi | Kategorik (0/1) |
+| `HvyAlcoholConsump` | Aşırı Alkol Tüketimi (Haftalık) | Kategorik (0/1) |
+| `AnyHealthcare` | Sağlık Sigortası Var mı? | Kategorik (0/1) |
+| `NoDocbcCost` | Maddi Nedenle Doktora Gidememe | Kategorik (0/1) |
+| `GenHlth` | Genel Sağlık Algısı (1: Mükemmel - 5: Kötü) | Sıralı (1-5) |
+| `MentHlth` | Son 30 Günde Kötü Ruh Hali Günü | Sürekli (0-30) |
+| `PhysHlth` | Son 30 Günde Fiziksel Rahatsızlık Günü | Sürekli (0-30) |
+| `DiffWalk` | Yürürken Zorluk Çekme | Kategorik (0/1) |
+| `Sex` | Cinsiyet (0: Kadın, 1: Erkek) | Kategorik (0/1) |
+| `Age` | Yaş Kategorisi (1-13) | Sıralı (1-13) |
+| `Education` | Eğitim Seviyesi | Sıralı (1-6) |
+| `Income` | Gelir Seviyesi | Sıralı (1-8) |
+
+#### b. Klinik & Genetik Model (Pima Indians)
+*   **Kaynak:** [National Institute of Diabetes and Digestive and Kidney Diseases](https://www.kaggle.com/uciml/pima-indians-diabetes-database)
+*   **Kapsam:** 768 Kişi (Pima Yerlileri)
+*   **Odak:** Klinik ölçümler (Glikoz, İnsülin, Tansiyon) ve **Genetik Yatkınlık (Soyağacı)**.
+*   **Algoritma:** Random Forest Classifier
+
+**Değişken Tablosu (Pima Indians):**
+| Değişken Adı | Açıklama | Tip |
+|--------------|----------|-----|
+| `Pregnancies` | Gebelik Sayısı | Sayısal |
+| `Glucose` | Oral Glikoz Tolerans Testi (2. saat) Plazma Glikoz Konsantrasyonu | Sayısal |
+| `BloodPressure` | Diyastolik Kan Basıncı (mm Hg) | Sayısal |
+| `SkinThickness` | Triceps Deri Kıvrım Kalınlığı (mm) | Sayısal |
+| `Insulin` | 2 Saatlik Serum İnsülini (mu U/ml) | Sayısal |
+| `BMI` | Vücut Kitle İndeksi | Sayısal |
+| `DiabetesPedigreeFunction` | Diyabet Soyağacı Fonksiyonu (Genetik Skor) | Sayısal |
+| `Age` | Yaş (Yıl) | Sayısal |
+| `Outcome` | Diyabet Durumu (Target) | Kategorik (0/1) |
+
 
 ### 3.2 Veri Ön İşleme (Data Preprocessing)
 Ham veri, model eğitimine girmeden önce `src/cleaning.py` modülü ile temizlenmiştir.
@@ -71,8 +122,6 @@ Performans karşılaştırması için iki temel algoritma seçilmiştir:
 1.  **Logistic Regression:** Doğrusal ayrılabilirliğe dayalı, temel referans (baseline) modeli olarak kullanılmıştır.
 2.  **Random Forest Classifier:** Çok sayıda karar ağacının (Decision Tree) oylama usulüyle çalıştığı, overfitting'e (aşırı öğrenme) dirençli ve karmaşık veri setlerinde başarılı bir algoritmadır.
 
----
-
 ## 4. Deneysel Sonuçlar (Experimental Results)
 
 Modeller, verinin **%80'i eğitim**, **%20'si test** olacak şekilde ayrılarak eğitilmiştir. Performans metrikleri olarak Doğruluk (Accuracy), F1-Score ve Duyarlılık (Recall) kullanılmıştır.
@@ -88,12 +137,12 @@ Tablo incelendiğinde, Logistic Regression'ın doğruluk oranı marjinal olarak 
 
 > *Not: Recall değerlerinin genel olarak düşük olması, veri setindeki "Sağlıklı" sınıfının "Diyabetli" sınıfına göre sayıca çok üstün olmasından (Class Imbalance) kaynaklanmaktadır.*
 
-![Model Karşılaştırma Grafiği](datasets/model_karsilastirma.png)
+![Model Karşılaştırma Grafiği](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/model_karsilastirma.png)
 
 ### 4.2 Hata Analizi (Confusion Matrix)
 Modelin sınıflandırma hatalarını daha detaylı incelemek için Hata Matrisi (Confusion Matrix) oluşturulmuştur. Bu matris, modelin kaç hastayı gözden kaçırdığını (False Negative) ve kaç sağlıklı bireye yanlış alarm verdiğini (False Positive) görselleştirir.
 
-![Hata Matrisi](datasets/confusion_matrix.png)
+![Hata Matrisi](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/confusion_matrix.png)
 
 
 ### 4.3 Özellik Önem Analizi (Feature Importance)
@@ -103,15 +152,23 @@ Modelin karar verirken hangi kriterlere öncelik verdiği analiz edildiğinde, d
 3.  **Genel Sağlık Durumu:** Kişinin kendi sağlığını nasıl tanımladığı.
 4.  **Gelir Düzeyi:** Düşük gelir gruplarında diyabet riskinin arttığı gözlemlenmiştir.
 
-![Özellik Önem Düzeyleri](datasets/ozellik_onemi.png)
+![Özellik Önem Düzeyleri](../../datasets/ozellik_onemi.png)
 
 
 ### 4.4 Model Açıklanabilirliği (SHAP)
 Modelin "Kara Kutu" (Black Box) olmasını engellemek için arayüze SHAP grafikleri eklenmiştir. Bu sayede kullanıcı, "Riskli" sonucunu aldığında, bu sonuca hangi sorunun ne kadar katkı yaptığını (Örn: "BMI değeriniz riski %10 artırdı") görebilmektedir.
 
----
+## 5. Uygulama Arayüzü (Application Interface)
 
-## 5. Alternatif Yöntemler ve Öneriler (Discussion)
+Geliştirilen sistem, kullanıcı dostu ve modern bir arayüze sahiptir. Kullanıcılar sol menüden analiz modunu seçebilir, verilerini girebilir ve anlık olarak sonuç alabilirler.
+
+![Uygulama Ekranı 1](../../datasets/app_screenshot_1.png)
+*Şekil 5.1: Yaşam Tarzı Analizi Arayüzü*
+
+![Uygulama Ekranı 2](../../datasets/app_screenshot_2.png)
+*Şekil 5.2: Klinik Analiz ve SHAP Açıklama Grafiği*
+
+## 6. Alternatif Yöntemler ve Öneriler (Discussion)
 
 Bu çalışmada **Random Forest** algoritması başarılı sonuçlar verse de, literatürdeki güncel gelişmeler ışığında farklı yöntemler de değerlendirilebilir:
 
@@ -120,9 +177,7 @@ Kaggle gibi veri bilimi yarışmalarında sıkça tercih edilen **XGBoost** veya
 *   **Avantajı:** Bu modeller, önceki ağaçların yaptığı hataları düzelterek ilerlediği (Boosting) için, özellikle dengesiz veri setlerinde **Recall (Duyarlılık)** değerini artırma potansiyeline sahiptir.
 *   **Neden Kullanılmadı?** Projenin mevcut aşamasında Random Forest'ın yorumlanabilirliği ve kurulum kolaylığı (Hyperparameter tuning ihtiyacının az olması) nedeniyle tercih edilmiştir. Ancak 2. fazda XGBoost denenerek, gözden kaçan diyabetli hasta sayısının (False Negative) azaltılması hedeflenmektedir.
 
----
-
-## 6. Sonuç ve Tartışma (Conclusion)
+## 7. Sonuç ve Tartışma (Conclusion)
 
 Bu çalışma kapsamında geliştirilen **Diyabet Analiz Platformu**, makine öğrenmesi algoritmalarının sağlık alanında erken teşhis amacıyla nasıl etkin kullanılabileceğini göstermiştir. Random Forest algoritması ile literatür standartlarına uygun (**%87+**) bir başarı oranı yakalanmıştır.
 
@@ -130,9 +185,7 @@ Projenin en güçlü yanı, teknik karmaşıklığı modern bir web arayüzü ve
 
 Gelecek çalışmalarda, veri setindeki dengesizliği gidermek için **SMOTE (Synthetic Minority Over-sampling Technique)** yönteminin uygulanması ve modelin daha geniş klinik veri setleri ile beslenmesi hedeflenmektedir.
 
----
-
-### 7. Kaynakça (References)
+### 8. Kaynakça (References)
 1.  U.S. Department of Health & Human Services, [*Diabetes Health Indicators Dataset (BRFSS 2015)*](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset).
 2.  National Institute of Diabetes and Digestive and Kidney Diseases, [*Pima Indians Diabetes Database*](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database).
 3.  Scikit-Learn Documentation: [*Random Forest Classifier*](https://scikit-learn.org/stable/modules/ensemble.html#forest).

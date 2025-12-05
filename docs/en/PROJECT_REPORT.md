@@ -54,6 +54,58 @@ Since a hybrid structure was used in the project, two different datasets were pr
 1.  **Lifestyle Dataset (BRFSS 2015):** Contains survey data of 253,680 participants. (Features: BMI, Smoking, Alcohol, Physical Activity, Age, Education, etc.)
 2.  **Clinical Dataset (Pima Indians):** Contains clinical measurements of 768 patients. (Features: Glucose, Insulin, Blood Pressure, Skin Thickness, etc.)
 
+### a. Lifestyle Model (BRFSS 2015)
+*   **Source:** [U.S. Department of Health & Human Services](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset)
+*   **Scope:** 253,680 Participants
+*   **Focus:** Lifestyle habits (Smoking, Alcohol, Physical Activity) and **Socio-economic factors (Education, Income)**.
+*   **Algorithm:** Random Forest Classifier
+
+**Variable Table (BRFSS 2015):**
+| Variable Name | Description | Type |
+|--------------|----------|-----|
+| `HighBP` | High Blood Pressure Diagnosis | Categorical (0/1) |
+| `HighChol` | High Cholesterol Diagnosis | Categorical (0/1) |
+| `CholCheck` | Cholesterol Check in Last 5 Years | Categorical (0/1) |
+| `BMI` | Body Mass Index | Continuous |
+| `Smoker` | Smoked at least 100 cigarettes | Categorical (0/1) |
+| `Stroke` | Stroke History | Categorical (0/1) |
+| `HeartDiseaseorAttack` | Coronary Heart Disease or Myocardial Infarction | Categorical (0/1) |
+| `PhysActivity` | Physical Activity in Past 30 Days | Categorical (0/1) |
+| `Fruits` | Consume Fruit 1+ per day | Categorical (0/1) |
+| `Veggies` | Consume Vegetables 1+ per day | Categorical (0/1) |
+| `HvyAlcoholConsump` | Heavy Alcohol Consumption | Categorical (0/1) |
+| `AnyHealthcare` | Have any health care coverage | Categorical (0/1) |
+| `NoDocbcCost` | Could not see doctor because of cost | Categorical (0/1) |
+| `GenHlth` | General Health (1: Excellent - 5: Poor) | Ordinal (1-5) |
+| `MentHlth` | Days of poor mental health (past 30 days) | Continuous (0-30) |
+| `PhysHlth` | Days of physical illness (past 30 days) | Continuous (0-30) |
+| `DiffWalk` | Serious difficulty walking | Categorical (0/1) |
+| `Sex` | Sex (0: Female, 1: Male) | Categorical (0/1) |
+| `Age` | Age Category (1-13) | Ordinal (1-13) |
+| `Education` | Education Level | Ordinal (1-6) |
+| `Income` | Income Level | Ordinal (1-8) |
+
+### b. Clinical & Genetic Model (Pima Indians)
+*   **Source:** [National Institute of Diabetes and Digestive and Kidney Diseases](https://www.kaggle.com/uciml/pima-indians-diabetes-database)
+*   **Scope:** 768 People (Pima Indians)
+*   **Focus:** Clinical measurements (Glucose, Insulin, Blood Pressure) and **Genetic Predisposition (Pedigree)**.
+*   **Algorithm:** Random Forest Classifier
+
+**Variable Table (Pima Indians):**
+| Variable Name | Description | Type |
+|--------------|----------|-----|
+| `Pregnancies` | Number of times pregnant | Numeric |
+| `Glucose` | Plasma glucose concentration a 2 hours in an oral glucose tolerance test | Numeric |
+| `BloodPressure` | Diastolic blood pressure (mm Hg) | Numeric |
+| `SkinThickness` | Triceps skin fold thickness (mm) | Numeric |
+| `Insulin` | 2-Hour serum insulin (mu U/ml) | Numeric |
+| `BMI` | Body Mass Index | Numeric |
+| `DiabetesPedigreeFunction` | Diabetes pedigree function (Genetic Score) | Numeric |
+| `Age` | Age (years) | Numeric |
+| `Outcome` | Class variable (0 or 1) | Categorical |
+
+
+
 ### 3.2 Data Preprocessing
 Raw data was cleaned with the `src/cleaning.py` module before entering model training.
 
@@ -88,12 +140,12 @@ When the table is examined, although the accuracy rate of Logistic Regression se
 
 > *Note: Recall values are generally low due to the fact that the "Healthy" class in the dataset is vastly superior in number to the "Diabetic" class (Class Imbalance).*
 
-![Model Comparison Chart](../datasets/model_karsilastirma.png)
+![Model Comparison Chart](../../datasets/model_karsilastirma.png)
 
 ### 4.2 Error Analysis (Confusion Matrix)
 A Confusion Matrix was created to examine the classification errors of the model in more detail. This matrix visualizes how many patients the model missed (False Negative) and how many healthy individuals it gave a false alarm (False Positive).
 
-![Confusion Matrix](../datasets/confusion_matrix.png)
+![Confusion Matrix](../../datasets/confusion_matrix.png)
 
 
 ### 4.3 Feature Importance Analysis
@@ -103,7 +155,7 @@ When analyzed which criteria the model prioritizes when making a decision, it wa
 3.  **General Health Status:** How the person defines their own health.
 4.  **Income Level:** It has been observed that the risk of diabetes increases in low-income groups.
 
-![Feature Importance Levels](../datasets/ozellik_onemi.png)
+![Feature Importance Levels](../../datasets/ozellik_onemi.png)
 
 
 ### 4.4 Model Explainability (SHAP)
@@ -111,7 +163,21 @@ SHAP charts have been added to the interface to prevent the model from being a "
 
 ---
 
-## 5. Alternative Methods and Discussion
+---
+
+## 5. Application Interface
+
+The developed system has a user-friendly and modern interface. Users can select the analysis mode from the left menu, enter their data, and get instant results.
+
+![Application Screen 1](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/app_screenshot_1.png)
+*Figure 5.1: Lifestyle Analysis Interface*
+
+![Application Screen 2](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/app_screenshot_2.png)
+*Figure 5.2: Clinical Analysis and SHAP Explanation Chart*
+
+---
+
+## 6. Alternative Methods and Discussion
 
 Although the **Random Forest** algorithm gave successful results in this study, different methods can be evaluated in the light of current developments in the literature:
 
@@ -122,7 +188,7 @@ Although the **Random Forest** algorithm gave successful results in this study, 
 
 ---
 
-## 6. Conclusion and Discussion
+## 7. Conclusion and Discussion
 
 This **Diabetes Analysis Platform** developed within the scope of this study has shown how machine learning algorithms can be used effectively for early diagnosis in the health field. A success rate (**87%+**) in accordance with literature standards was achieved with the Random Forest algorithm.
 
@@ -130,9 +196,7 @@ The strongest aspect of the project is its ability to present technical complexi
 
 In future studies, it is aimed to apply the **SMOTE (Synthetic Minority Over-sampling Technique)** method to eliminate imbalance in the dataset and to feed the model with larger clinical datasets.
 
----
-
-### 7. References
+### 8. References
 1.  U.S. Department of Health & Human Services, [*Diabetes Health Indicators Dataset (BRFSS 2015)*](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset).
 2.  National Institute of Diabetes and Digestive and Kidney Diseases, [*Pima Indians Diabetes Database*](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database).
 3.  Scikit-Learn Documentation: [*Random Forest Classifier*](https://scikit-learn.org/stable/modules/ensemble.html#forest).

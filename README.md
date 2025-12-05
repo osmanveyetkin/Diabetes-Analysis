@@ -5,6 +5,13 @@
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
 
+<div align="center">
+  <h3>
+    🌍 <a href="docs/en/README.md">English Documentation</a> | 
+    🇹🇷 <a href="#proje-özeti">Türkçe Dökümantasyon</a>
+  </h3>
+</div>
+
 > **Makine Öğrenmesi Dönem Projesi**  
 > Sağlık verilerini analiz ederek diyabet riskini tahminleyen, uçtan uca geliştirilmiş yapay zeka destekli karar destek sistemi.
 
@@ -34,6 +41,15 @@ Proje, sadece akademik bir çalışma olmanın ötesinde; **Glassmorphism** tasa
 - **PDF Raporlama:** Sonuçlarınızı ve girdilerinizi içeren, doktorunuzla paylaşabileceğiniz profesyonel PDF raporu.
 - **Modern Arayüz:** Streamlit ve özel CSS tasarımları ile geliştirilmiş kullanıcı deneyimi.
 - **Gerçek Zamanlı Analiz:** Optimize edilmiş algoritmalarla anlık sonuç üretimi.
+
+### Uygulama Arayüzü
+Geliştirdiğimiz modern web arayüzünden örnekler:
+
+![Yaşam Tarzı Analizi](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/app_screenshot_1.png)
+*Şekil 1: Yaşam Tarzı Analizi Modu ve Risk Hesaplama Ekranı*
+
+![Klinik Analiz](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/app_screenshot_2.png)
+*Şekil 2: Klinik & Genetik Veri Analiz Ekranı*
 
 ---
 

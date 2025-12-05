@@ -35,6 +35,15 @@ Beyond being just an academic study, the project carries the quality of a profes
 - **Modern Interface:** Modern user experience developed with Streamlit and custom CSS designs.
 - **Real-Time Analysis:** Instant result generation with optimized algorithms.
 
+### Application Interface
+Examples from our modern web interface:
+
+![Lifestyle Analysis](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/app_screenshot_1.png)
+*Figure 1: Lifestyle Analysis Mode and Risk Calculation Screen*
+
+![Clinical Analysis](https://raw.githubusercontent.com/osmanveyetkin/Diabetes-Analysis/main/datasets/app_screenshot_2.png)
+*Figure 2: Clinical & Genetic Data Analysis Screen*
+
 ---
 
 ## System Architecture
