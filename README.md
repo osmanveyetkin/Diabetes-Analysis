@@ -8,7 +8,7 @@
 <div align="center">
   <h3>
     🌍 <a href="docs/en/README.md">English Documentation</a> | 
-    🇹🇷 <a href="#proje-özeti">Türkçe Dökümantasyon</a>
+    🇹🇷 <a href="#proje-özeti">Türkçe Dokümantasyon</a>
   </h3>
 </div>
 
