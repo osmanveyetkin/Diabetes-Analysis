@@ -1,6 +1,6 @@
 # 📘 Teknik Detay Raporu: Diyabet Risk Analiz Platformu
 
-Bu belge, projenin teknik altyapısını, veri akışını ve kullanılan algoritmaların çalışma mantığını detaylandırmak amacıyla hazırlanmıştır.
+**Bu belge**, projenin teknik altyapısını, veri akışını ve kullanılan algoritmaların çalışma mantığını detaylandırmak amacıyla hazırlanmıştır.
 
 ## 1. Proje Mimarisi ve Dosya Yapısı
 
